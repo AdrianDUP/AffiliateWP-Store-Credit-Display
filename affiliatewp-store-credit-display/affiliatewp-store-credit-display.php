@@ -41,9 +41,7 @@ if ( ! class_exists('AFFWP_Store_Credit_Display') ) {
          * @since 1.0.0
          */
         public static function prerequisite_checks() {
-            if ( ! is_admin() ) {
                 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-            }
 
             if ( is_plugin_active( 'affiliate-wp/affiliate-wp.php' ) && is_plugin_active( 'affiliatewp-store-credit/affiliatewp-store-credit.php' ) ) {
                 return true;
@@ -79,7 +77,12 @@ if ( ! class_exists('AFFWP_Store_Credit_Display') ) {
          * @since 1.0.0
          */
         public function store_credit_display($user) {
-            include_once(SCD_PLUGIN_DIR . 'templates/template-affiliate-store-credit.php');
+            include_once(SCD_PLUGIN_DIR . '/templates/template-affiliate-store-credit.php');
         }
     }
 }
+
+function store_credit_display() {
+    return new AFFWP_Store_Credit_Display();
+}
+store_credit_display();
