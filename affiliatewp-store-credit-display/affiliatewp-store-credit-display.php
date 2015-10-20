@@ -19,9 +19,17 @@ if ( ! class_exists('AFFWP_Store_Credit_Display') ) {
     class AFFWP_Store_Credit_Display {
 
         /**
-         * Class Constructor
+         * @var AFFWP_Store_Credit_Display $instance The instance for the main plugin class
+         * @since 1.1.0
          */
-        public function __construct() {
+        private static $instance;
+
+        /**
+         * Class Constructor
+         *
+         * The Constructor has been deprecated as class initialisation method in version 1.1.0 in favour of instance()
+         */
+        /*public function __construct() {
             if ( self::is_prerequisite_checks_good() ) {
                 //  Create some definitions
                 if (!defined('SCD_PLUGIN_DIR')) {
@@ -33,6 +41,29 @@ if ( ! class_exists('AFFWP_Store_Credit_Display') ) {
             } else {
                 add_action('admin_notices', array($this, 'display_errors'));
             }
+        }*/
+
+        /**
+         * This function will create the instance for the class. This should be the only way to create an instance.
+         *
+         * @return AFFWP_Store_Credit_Display
+         * @since 1.1.0
+         */
+        public static function instance() {
+            if ( !isset( self::$instance ) && !( self::$instance instanceof AFFWP_Store_Credit_Display) ) {
+                self::$instance = new AFFWP_Store_Credit_Display();
+
+                if ( self::is_prerequisite_checks_good() ) {
+                    //  Set the constants
+                    self::$instance->set_constants();
+
+                    //  Add the required actions
+                    add_action('affwp_affiliate_dashboard_after_earnings', array( self::$instance, 'store_credit_display' ), 10, 1);
+                } else {
+                    add_action('admin_notices', array(self::$instance, 'display_errors'));
+                }
+            }
+            return self::$instance;
         }
 
         /**
@@ -71,6 +102,18 @@ if ( ! class_exists('AFFWP_Store_Credit_Display') ) {
         }
 
         /**
+         * Sets all the constant values for the plugin
+         *
+         * @access private
+         * @since 1.1.0
+         */
+        private function set_constants() {
+            if (!defined('SCD_PLUGIN_DIR')) {
+                define('SCD_PLUGIN_DIR', dirname(__FILE__));
+            }
+        }
+
+        /**
          * Action function that will render the additional information
          *
          * @param int $user
@@ -82,7 +125,7 @@ if ( ! class_exists('AFFWP_Store_Credit_Display') ) {
     }
 }
 
-function store_credit_display() {
-    return new AFFWP_Store_Credit_Display();
+function affwp_store_credit_display() {
+    return AFFWP_Store_Credit_Display::instance();
 }
-store_credit_display();
+affwp_store_credit_display();
