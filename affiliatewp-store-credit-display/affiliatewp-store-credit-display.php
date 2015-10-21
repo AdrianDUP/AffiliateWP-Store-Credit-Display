@@ -29,8 +29,8 @@ if ( ! class_exists('AFFWP_Store_Credit_Display') ) {
          *
          * The Constructor has been deprecated as class initialisation method in version 1.1.0 in favour of instance()
          */
-        /*public function __construct() {
-            if ( self::is_prerequisite_checks_good() ) {
+        private function __construct() {
+            /*if ( self::is_prerequisite_checks_good() ) {
                 //  Create some definitions
                 if (!defined('SCD_PLUGIN_DIR')) {
                     define('SCD_PLUGIN_DIR', dirname(__FILE__));
@@ -40,8 +40,8 @@ if ( ! class_exists('AFFWP_Store_Credit_Display') ) {
                 add_action('affwp_affiliate_dashboard_after_earnings', array( $this, 'store_credit_display' ), 10, 1);
             } else {
                 add_action('admin_notices', array($this, 'display_errors'));
-            }
-        }*/
+            }*/
+        }
 
         /**
          * This function will create the instance for the class. This should be the only way to create an instance.
