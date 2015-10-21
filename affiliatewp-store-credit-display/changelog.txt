@@ -1,3 +1,7 @@
+Version 1.1.0 -- Minor Update
+
+	# Changed the main class instantiation method. Plugin has not been reconfigured to use the singleton design pattern.
+
 Version 1.0.0 --  Initial Release
 
 	Created everything and everything works as described

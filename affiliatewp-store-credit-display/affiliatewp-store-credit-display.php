@@ -8,7 +8,7 @@
  *
  * Description: This plugin displays the current amount of store credit that you have left in your affiliate's affiliate area under statistics.
  *
- * Version: 1.0.0
+ * Version: 1.1.0
  */
 
 if ( ! defined('ABSPATH' ) ) {
